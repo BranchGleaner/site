@@ -2,7 +2,8 @@
     locker("mzsm");
 </script>
 
-# 11月8日作业
+
+# 11.15作业
 
 ## 免责声明及警告
 
@@ -10,39 +11,31 @@
 
 代码尽力为所有题目提供容易被理解的解答。若有疏漏之处或其它意见，欢迎讨论。
 
-## 一　数位统计
+## 一
 
 ### 代码设计
 
 ```c
-#include <stdio.h> 
+#include <stdio.h>
+
+void split_time(long total_sec,int *hr,int *min,int *sec)
+{
+	*hr=total_sec/3600;
+	*min=(total_sec-*hr*3600)/60;
+	*sec=total_sec-*hr*3600-*min*60;
+}
 
 int main()
 {
-	long long int num=0;
-	int total[10];
-	int i=0;
-	printf("Enter a number:");
-	scanf("%lld",&num);
-	for(i=0;i<10;i++)
-	{
-		total[i]=0;
-	}
-	while(num!=0)
-	{
-		total[num-(num/10)*10]++;
-		num=num/10;
-	}
-	printf("Digit:\t");
-	for(i=0;i<10;i++)
-	{
-		printf("\t%d",i);
-	}
-	printf("\nOccurrences:");
-	for(i=0;i<10;i++)
-	{
-		printf("\t%d",total[i]);
-	}
+	long n=0;
+	int oa=0,ob=0,oc=0;
+	int *a=&oa;
+	int *b=&ob;
+	int *c=&oc;
+	printf("Enter the number of seconds since midnight:");
+	scanf("%ld",&n);
+	split_time(n,a,b,c);
+	printf("Since midnight, %d hours, %d minutes and %d seconds have elapsed.",*a,*b,*c);
 	return 0;
 }
 ```
@@ -54,186 +47,207 @@ int main()
 #### 示例Ⅰ
 
 ```
-Enter a number:2000002
-Digit:          0       1       2       3       4       5       6       7       8       9
-Occurrences:    5       0       2       0       0       0       0       0       0       0
+Enter the number of seconds since midnight:5294
+Since midnight, 1 hours, 28 minutes and 14 seconds have elapsed.
 ```
 
 #### 示例Ⅱ
 
 ```
-Enter a number:9564238710514
-Digit:          0       1       2       3       4       5       6       7       8       9
-Occurrences:    1       2       1       1       2       2       1       1       1       1
+Enter the number of seconds since midnight:65946
+Since midnight, 18 hours, 19 minutes and 6 seconds have elapsed.
 ```
 
 #### 示例Ⅲ
 
 ```
-Enter a number:3214560000
-Digit:          0       1       2       3       4       5       6       7       8       9
-Occurrences:    4       1       1       1       1       1       1       0       0       0
+Enter the number of seconds since midnight:49520
+Since midnight, 13 hours, 45 minutes and 20 seconds have elapsed.
 ```
 
-## 二　幻方生成
-
-> **本程序实现的是题目情景的加强版，故提示语和程序设计与理想解答略有不同。**
+## 二
 
 ### 代码设计
 
 ```c
 #include <stdio.h>
 
-int squ[300][300];
-int n=0;
-
-void made(int l,int x,int y,int n)
+int isspe(int n)
 {
-	int xn=x+(l-1)/2;
-	int yn=y;
-	int xns,yns=0;
-	int i=0;
-	for(i=n;i<n+l*l;i++)
+	if((n%4==0&&n%100!=0)||n%400==0)
 	{
-		squ[xn][yn]=i;
-		if(xn+1<x+l)
-		{
-			xns=xn+1;
-		}
-		else
-		{
-			xns=x;
-		}
-		if(yn-1<y)
-		{
-			yns=yn+l-1;
-		}
-		else
-		{
-			yns=yn-1;
-		}
-		if(squ[xns][yns]!=0)
-		{
-			if(yn<y+l-1)
-			{
-				yn=yn+1;
-			}
-			else
-			{
-				yn=y;
-			}
-		}
-		else
-		{
-			xn=xns;
-			yn=yns;
-		}
+		return 1;
 	}
+	return 0;
 }
 
-void change(int x,int y)
+void split_date(int day_of_year,int year,int *month,int *day)
 {
-	squ[x][y]=n*n+1-squ[x][y];
-	squ[x][y+3]=n*n+1-squ[x][y+3];
-	squ[x+1][y+1]=n*n+1-squ[x+1][y+1];
-	squ[x+1][y+2]=n*n+1-squ[x+1][y+2];
-	squ[x+2][y+1]=n*n+1-squ[x+2][y+1];
-	squ[x+2][y+2]=n*n+1-squ[x+2][y+2];
-	squ[x+3][y]=n*n+1-squ[x+3][y];
-	squ[x+3][y+3]=n*n+1-squ[x+3][y+3];
-}
-
-int main()
-{
-	int i=0,k=0;
-	int f=0;
-	printf("Tip: This program implements an enhanced version of the topic scenario, so the prompts and program design are slightly different.\n");
-	printf("This program creates a magic square of a specified size.\nThe size must be an integer between 1 and 300.\nEnter size of magic square:");
-	scanf("%d",&n);
-	for(i=0;i<n;i++)
+	if(isspe(year)==0)
 	{
-		for(k=0;k<n;k++)
+		if(1<=day_of_year&&day_of_year<=31)
 		{
-			squ[k][i]=0;
+			*month=1;
+			*day=day_of_year;
+			return;
 		}
-	}
-	if(n%2!=0)
-	{
-		made(n,0,0,1);
-	}
-	else if(n%4==0)
-	{
-		for(i=0;i<n;i++)
+		if(32<=day_of_year&&day_of_year<=59)
 		{
-			for(k=0;k<n;k++)
-			{
-				f++;
-				squ[k][i]=f;
-			}
+			*month=2;
+			*day=day_of_year-31;
+			return;
 		}
-		for(i=0;i<n/4;i++)
+		if(60<=day_of_year&&day_of_year<=90)
 		{
-			for(k=0;k<n/4;k++)
-			{
-				change(4*k,4*i);
-			}
+			*month=3;
+			*day=day_of_year-59;
+			return;
+		}
+		if(91<=day_of_year&&day_of_year<=120)
+		{
+			*month=4;
+			*day=day_of_year-90;
+			return;
+		}
+		if(121<=day_of_year&&day_of_year<=151)
+		{
+			*month=5;
+			*day=day_of_year-120;
+			return;
+		}
+		if(152<=day_of_year&&day_of_year<=181)
+		{
+			*month=6;
+			*day=day_of_year-151;
+			return;
+		}
+		if(182<=day_of_year&&day_of_year<=212)
+		{
+			*month=7;
+			*day=day_of_year-181;
+			return;
+		}
+		if(213<=day_of_year&&day_of_year<=243)
+		{
+			*month=8;
+			*day=day_of_year-212;
+			return;
+		}
+		if(244<=day_of_year&&day_of_year<=273)
+		{
+			*month=9;
+			*day=day_of_year-243;
+			return;
+		}
+		if(274<=day_of_year&&day_of_year<=304)
+		{
+			*month=10;
+			*day=day_of_year-273;
+			return;
+		}
+		if(305<=day_of_year&&day_of_year<=334)
+		{
+			*month=11;
+			*day=day_of_year-304;
+			return;
+		}
+		if(335<=day_of_year&&day_of_year<=365)
+		{
+			*month=12;
+			*day=day_of_year-334;
+			return;
 		}
 	}
 	else
 	{
-		if(n==2)
+		day_of_year=day_of_year-1;
+		if(0<=day_of_year&&day_of_year<=30)
 		{
-			printf("Sorry, there is no second-order magic square!");
-			return 0;
+			*month=1;
+			*day=day_of_year+1;
+			return;
 		}
-		made(n/2,0,0,1);
-		made(n/2,n/2,n/2,n*n/4+1);
-		made(n/2,n/2,0,n*n/2+1);
-		made(n/2,0,n/2,n*n*3/4+1);
-		f=(n-2)/4;
-		for(i=0;i<n/2;i++)
+		if(31<=day_of_year&&day_of_year<=59)
 		{
-			if(i!=(n-2)/4)
-			{
-				for(k=0;k<f;k++)
-				{
-					squ[k][i]=squ[k][i]+squ[k][i+n/2];
-					squ[k][i+n/2]=squ[k][i]-squ[k][i+n/2];
-					squ[k][i]=squ[k][i]-squ[k][i+n/2];
-				}
-			}
-			else
-			{
-				for(k=0;k<f;k++)
-				{
-					squ[k+i][i]=squ[k+i][i]+squ[k+i][i+n/2];
-					squ[k+i][i+n/2]=squ[k+i][i]-squ[k+i][i+n/2];
-					squ[k+i][i]=squ[k+i][i]-squ[k+i][i+n/2];
-				}
-			}
+			*month=2;
+			*day=day_of_year-30;
+			return;
 		}
-		if(f>1)
+		if(60<=day_of_year&&day_of_year<=90)
 		{
-			for(i=0;i<n/2;i++)
-			{
-				for(k=0;k<f-1;k++)
-				{
-					squ[i+n/2-k][i]=squ[i+n/2-k][i]+squ[i+n/2-k][i+n/2];
-					squ[i+n/2-k][i+n/2]=squ[i+n/2-k][i]-squ[i+n/2-k][i+n/2];
-					squ[i+n/2-k][i]=squ[i+n/2-k][i]-squ[i+n/2-k][i+n/2];
-				}
-			}
+			*month=3;
+			*day=day_of_year-59;
+			return;
+		}
+		if(91<=day_of_year&&day_of_year<=120)
+		{
+			*month=4;
+			*day=day_of_year-90;
+			return;
+		}
+		if(121<=day_of_year&&day_of_year<=151)
+		{
+			*month=5;
+			*day=day_of_year-120;
+			return;
+		}
+		if(152<=day_of_year&&day_of_year<=181)
+		{
+			*month=6;
+			*day=day_of_year-151;
+			return;
+		}
+		if(182<=day_of_year&&day_of_year<=212)
+		{
+			*month=7;
+			*day=day_of_year-181;
+			return;
+		}
+		if(213<=day_of_year&&day_of_year<=243)
+		{
+			*month=8;
+			*day=day_of_year-212;
+			return;
+		}
+		if(244<=day_of_year&&day_of_year<=273)
+		{
+			*month=9;
+			*day=day_of_year-243;
+			return;
+		}
+		if(274<=day_of_year&&day_of_year<=304)
+		{
+			*month=10;
+			*day=day_of_year-273;
+			return;
+		}
+		if(305<=day_of_year&&day_of_year<=334)
+		{
+			*month=11;
+			*day=day_of_year-304;
+			return;
+		}
+		if(335<=day_of_year&&day_of_year<=365)
+		{
+			*month=12;
+			*day=day_of_year-334;
+			return;
 		}
 	}
-	printf("The magic square is:");
-	for(i=0;i<n;i++)
-	{
-		printf("\n");
-		for(k=0;k<n;k++)
-		{
-			printf("%d\t",squ[k][i]);
-		}
-	}
+}
+
+int main()
+{
+	int n=0,y=0;
+	int oa=0,ob=0;
+	int *a=&oa;
+	int *b=&ob;
+	printf("Enter the specified year:");
+	scanf("%d",&y);
+	printf("Enter the specified date:");
+	scanf("%d",&n);
+	split_date(n,y,a,b);
+	printf("The %dth day of year %d is the %dth month and %dth day.",n,y,*a,*b);
 	return 0;
 }
 ```
@@ -243,88 +257,23 @@ int main()
 #### 示例Ⅰ
 
 ```
-Tip: This program implements an enhanced version of the topic scenario, so the prompts and program design are slightly different.
-This program creates a magic square of a specified size.
-The size must be an integer between 1 and 300.
-Enter size of magic square:7
-The magic square is:
-30      39      48      1       10      19      28
-38      47      7       9       18      27      29
-46      6       8       17      26      35      37
-5       14      16      25      34      36      45
-13      15      24      33      42      44      4
-21      23      32      41      43      3       12
-22      31      40      49      2       11      20
+Enter the specified year:2022
+Enter the specified date:42
+The 42th day of year 2022 is the 2th month and 11th day.
 ```
 
 #### 示例Ⅱ
 
 ```
-Tip: This program implements an enhanced version of the topic scenario, so the prompts and program design are slightly different.
-This program creates a magic square of a specified size.
-The size must be an integer between 1 and 300.
-Enter size of magic square:6
-The magic square is:
-35      1       6       26      19      24
-3       32      7       21      23      25
-31      9       2       22      27      20
-8       28      33      17      10      15
-30      5       34      12      14      16
-4       36      29      13      18      11
+Enter the specified year:1500
+Enter the specified date:196
+The 196th day of year 1500 is the 7th month and 15th day.
 ```
 
 #### 示例Ⅲ
 
 ```
-Tip: This program implements an enhanced version of the topic scenario, so the prompts and program design are slightly different.
-This program creates a magic square of a specified size.
-The size must be an integer between 1 and 300.
-Enter size of magic square:2
-Sorry, there is no second-order magic square!
-```
-
-## 三　计算式子
-
-### 代码设计
-
-```c
-#include <stdio.h>
-#include <math.h>
-
-double value(double num)
-{
-	return (3*pow(num,5.0)+2*pow(num,4.0)-5*pow(num,3.0)-pow(num,2.0)+7*num-6);
-}
-
-main()
-{
-	double n=0;
-	printf("Enter the value of x to calculate the value of the polynomial 3*x^5+2*x^4-5*x^3-x^2+7*x-6:");
-	scanf("%lf",&n);
-	printf("The value of the expression is %lf.",value(n));
-	return 0;
-}
-```
-
-### 运行展示
-
-#### 示例Ⅰ
-
-```
-Enter the value of x to calculate the value of the polynomial 3*x^5+2*x^4-5*x^3-x^2+7*x-6:1  
-The value of the expression is 0.000000.
-```
-
-#### 示例Ⅱ
-
-```
-Enter the value of x to calculate the value of the polynomial 3*x^5+2*x^4-5*x^3-x^2+7*x-6:1.8 
-The value of the expression is 51.882240.
-```
-
-#### 示例Ⅲ
-
-```
-Enter the value of x to calculate the value of the polynomial 3*x^5+2*x^4-5*x^3-x^2+7*x-6:-45.5
-The value of the expression is -575989678.781250.
+Enter the specified year:2024
+Enter the specified date:366
+The 366th day of year 2024 is the 12th month and 31th day.
 ```
