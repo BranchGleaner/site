@@ -12,4 +12,4 @@
 
 ## 一
 
-点击此处下载[青松助手](/Automation.exe)。
+点击此处下载[青松助手](/Automation.exe)和[模板](/model.xlsx)。
