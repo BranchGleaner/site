@@ -9,3 +9,5 @@
   - [习题](code/test)
   - [作业](code/home)
   - [比赛题解](code/contest)
+* **Gadgets**
+  * [青松助手](gadgets/automation)
