@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/docsify/4.12.2/themes/vue.min.css">
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/docsify/4.12.2/themes/vue.min.css">
+
 </head>
 <body style="user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;" oncontextmenu=self.event.returnValue=false onselectstart="return false">
 <script>
@@ -23,7 +24,55 @@ window.close();
 };})();</script>
 <div style="height:100%;width:100%;position:fixed;z-index:-9999"></div>
 <style>
-:root{--waline-theme-color:#33a3dc;--waline-active-color: #00BFFF;}
+@media (prefers-color-scheme: dark) {
+body {
+ background-color:#0d1116;
+ color: #c8d1d9;
+}
+.search input {
+    background : #0d1116;
+}
+input::-webkit-input-placeholder { 
+color: #c8d1d9;
+} 
+.sidebar {
+ background-color:#0d1116;
+ color: #c8d1d9;
+border-right:1px solid rgba(22,27,34,1);
+}
+.search {
+ background-color:#0d1116;
+ color: #c8d1d9;
+border-bottom: 1px solid #161b22;
+}
+.sidebar-toggle {
+ background-color:#0d1116;
+}
+.sidebar ul li a {
+    color: #c8d1d9;
+}
+.markdown-section code, .markdown-section pre {
+    background-color:#161b22;
+}
+.token.punctuation {
+    color: #c8d1d9;
+}
+.token.cdata, .token.comment, .token.doctype, .token.prolog {
+    color: #8b949e;
+}
+.markdown-section blockquote p {
+    color: #8b949e;
+}
+.markdown-section pre>code {
+    color: #c8d1d9;
+}
+b,strong,span {
+ color: #E0E0E0;
+}
+.anchor span {
+    color: #c8d1d9;
+}
+}
 </style>
   <div id="app">正在加载中，请稍候......</div>
   <script>
