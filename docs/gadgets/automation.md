@@ -1,6 +1,7 @@
 <script>
     locker("Youths");
 </script>
+
 # 青松助手
 
 ## 声明、协议及警告
@@ -43,7 +44,12 @@
 
 ## 下载地址
 
-你可以在这里下载<a href="https://raw.githubusercontent.com/BranchGleaner/site/main/docs/gadgets/Automation.exe" target="_blank">青松助手</a>和<a href="https://raw.githubusercontent.com/BranchGleaner/site/main/docs/gadgets/model.xlsx" target="_blank">模板表格</a>。祝使用愉快！
+你可以在这里下载 Beta 版本的<a href="https://115.com/s/sw673eo3nsz#
+Auto" target="_blank">青松助手和模板表格</a>。祝使用愉快！
+
+> **提取码是 `z9d8`。**
+
+作者正在试图给它做一个图形化界面，请期待 Stable 版本的青松助手！
 
 ## Q&A
 
