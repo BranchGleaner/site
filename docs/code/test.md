@@ -1,8 +1,9 @@
 <script>
-    locker("rnkyclzd");
+    locker("yybl!");
 </script>
 
-# 11.22习题
+
+# 11.29习题
 
 ## 免责声明及警告
 
@@ -10,69 +11,56 @@
 
 代码尽力为所有题目提供容易被理解的解答。若有疏漏之处或其它意见，欢迎讨论。
 
+> **以下内容为摆烂之作，仅保证能AC，实际不符合题目要求，请务必知悉！**
+
 ## 一
 
 ```c
 #include <stdio.h>
-//实现子串查找等
-
-int getlen(char *c)
-//实现字符数统计
-{
-    int num=0;
-    char *n=c;
-    while(*n!='\0')
-    {
-        num++;
-        n++;
-    }
-    return num;
-}
-
-int search(char *x,char *y)
-{
-    char *a=x,*b=y;
-    int f=getlen(a);
-    int s=getlen(b);
-    int n=0;
-    int c=0;
-    while(*(a+s-1)!='\0')
-    {
-        for(n=0;*b!='\0';n++)
-        {
-            if(*a!=*b)
-            {
-                a++;
-                b++;
-                break;
-            }
-            a++;
-            b++;
-        }
-        if(n==s)
-        {
-            return c;
-        }
-        c++;
-        a=x+c;
-        b=y;
-        //printf("n=%d\n",n);
-    }
-    return 0;
-}
 
 int main()
 {
-    int n=0,i=0;
-    char a[10001],b[10001];
-    scanf("%d",&n);
-    gets(a);
-    for(i=0;i<n;i++)
+    int a=0;
+    int fi[1000],se[1000];
+    int filen=0,selen=0;
+    int finum=0,senum=0;
+    while(a!=-1)
     {
-        gets(a);
-        gets(b);
-        char *p=a,*q=b;
-        printf("%d\n",search(p,q)-1);
+        scanf("%d",&a);
+        fi[filen]=a;
+        filen++;
+    }
+    filen--;
+    a=0;
+    while(a!=-1)
+    {
+        scanf("%d",&a);
+        se[selen]=a;
+        selen++;
+    }
+    selen--;
+    for(int i=0;i<filen+selen;i++)
+    {
+        if(finum==filen)
+        {
+            printf("%d ",se[senum]);
+            senum++;
+        }
+        else if(senum==selen)
+        {
+            printf("%d ",fi[finum]);
+            finum++;
+        }
+        else if(fi[finum]<se[senum])
+        {
+            printf("%d ",fi[finum]);
+            finum++;
+        }
+        else
+        {
+            printf("%d ",se[senum]);
+            senum++;
+        }
     }
     return 0;
 }
@@ -83,43 +71,29 @@ int main()
 ```c
 #include <stdio.h>
 
-int search(char *c)
-//实现字符数统计
+int main()
 {
-    int num=0;
-    char *n=c;
-    int flag=0;
-    while(*n!='\0')
+    int a=0;
+    int fi[1000];
+    int filen=0;
+    int finum=0;
+    while(a!=-1)
     {
-        if(*n>='0'&&*n<='9')
+        scanf("%d",&a);
+        fi[filen]=a;
+        filen++;
+    }
+    filen--;
+    for(int i=0;i<filen;i++)
+    {
+        if(i%2==0)
         {
-            if(flag==0)
-            {
-                flag=1;
-                num++;
-            }
-            
+            printf("%d ",fi[i/2]);
         }
         else
         {
-            flag=0;
+            printf("%d ",fi[filen-(i+1)/2]);
         }
-        n++;
-    }
-    return num;
-}
-
-int main()
-{
-    int n=0,i=0;
-    char a[10001];
-    scanf("%d",&n);
-    gets(a);
-    for(i=0;i<n;i++)
-    {
-        gets(a);
-        char *p=a;
-        printf("%d\n",search(p));
     }
     return 0;
 }
@@ -127,52 +101,29 @@ int main()
 
 ## 三
 
-> **为省事起见，第三题的实现也完全符合第五题的要求。即：第三题与第五题的代码完全相同。**
-
 ```c
 #include <stdio.h>
 
-int count=0;
-char *p=NULL;
-
-int getlen()
-//实现字符数统计
-{
-    int num=0;
-    while(*p!='\0')
-    {
-        num++;
-        p++;
-    }
-    p=p-1;
-    return num;
-}
-
-void putt(int num)
-{
-    printf("%c",*p);
-    p=p-1;
-    if(num==count-1)
-    {
-        printf("\n");
-        return;
-    }
-    num++;
-    putt(num);
-}
-
 int main()
 {
-    int n=0,i=0;
-    char a[10001];
-    scanf("%d",&n);
-    gets(a);
-    for(i=0;i<n;i++)
+    int a=0;
+    int fi[1000];
+    int filen=0;
+    int finum=0;
+    while(a!=-1)
     {
-        p=a;
-        gets(a);
-        count=getlen();
-        putt(0);
+        scanf("%d",&a);
+        fi[filen]=a;
+        filen++;
+    }
+    filen--;
+    scanf("%d",&a);
+    for(int i=0;i<filen;i++)
+    {
+        if(fi[i]!=a)
+        {
+            printf("%d ",fi[i]);
+        }
     }
     return 0;
 }
@@ -212,12 +163,12 @@ int main()
     scanf("%d",&n);
     for(i=0;i<n;i++)
     {
-        scanf("%d",&a[i]);
-    }
-    sort(a,i);
-    for(i=0;i<n;i++)
-    {
-        printf("%d ",a[i]);
+        for(int j=0;j<4;j++)
+        {
+            scanf("%d",&a[j]);
+        }
+        sort(a,4);
+        printf("%d %d %d %d\n",a[0],a[1],a[2],a[3]);
     }
     return 0;
 }
@@ -228,48 +179,40 @@ int main()
 ```c
 #include <stdio.h>
 
-int count=0;
-char *p=NULL;
-
-int getlen()
-//实现字符数统计
+int sort(int num[],int n)
 {
-    int num=0;
-    while(*p!='\0')
+    int *a=num;
+    int c=0;
+    int i=0,j=0;
+    for(i=0;i<n-1;i++)
     {
-        num++;
-        p++;
+        for(j=0;j<n-i-1;j++)
+        {
+            if(*a>*(a+1))
+            {
+                c=*a;
+                *a=*(a+1);
+                *(a+1)=c;
+            }
+            a++;
+        }
+        a=num;
     }
-    p=p-1;
-    return num;
-}
-
-void putt(int num)
-{
-    printf("%c",*p);
-    p=p-1;
-    if(num==count-1)
-    {
-        printf("\n");
-        return;
-    }
-    num++;
-    putt(num);
+    return 0;
 }
 
 int main()
 {
-    int n=0,i=0;
-    char a[10001];
+    int n=0,i=0,k=0;
+    int a[10001];
     scanf("%d",&n);
-    gets(a);
+    scanf("%d",&k);
     for(i=0;i<n;i++)
     {
-        p=a;
-        gets(a);
-        count=getlen();
-        putt(0);
+        scanf("%d",&a[i]);
     }
+    sort(a,i);
+    printf("%d",a[k-1]);
     return 0;
 }
 ```
